@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using NutriVie.Data;
+
 namespace NutriVie
 {
     public class Program
@@ -8,6 +11,10 @@ namespace NutriVie
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<NutriVieDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("NutriVieConnect"));
+            });
 
             var app = builder.Build();
 
