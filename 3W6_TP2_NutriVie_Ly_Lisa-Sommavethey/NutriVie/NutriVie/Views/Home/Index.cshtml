@@ -31,9 +31,19 @@
 
         <!-- LES SERVICES -->
         <div class="cards-services">
-
+            @foreach(var services in Model)
+            {
+                <div class="service-card">
+                    <div class="card_media"></div>
+                    <div class="card_content">
+                        <h4>@services.Nom</h4>
+                        <p>@services.Description</p>
+                    </div>
+                </div>
+            }
+            
             <!-- Service 1 - -->
-            <div class="service-card">
+            @* <div class="service-card">
                 <div class="card_media"></div>
                 <div class="card_content">
                     <h4>Recettes Saines</h4>
@@ -57,7 +67,8 @@
                     <h4>Conseils d'Experts</h4>
                     <p>Des articles et guides sur la nutrition et le bien-être.</p>
                 </div>
-            </div>
+            </div> *@
+            
         </div>
     </div>
 </section>

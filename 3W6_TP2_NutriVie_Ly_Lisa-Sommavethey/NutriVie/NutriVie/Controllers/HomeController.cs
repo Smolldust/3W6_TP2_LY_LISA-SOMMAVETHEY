@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using NutriVie.Data;
 using NutriVie.Models;
 
 namespace NutriVie.Controllers
@@ -7,15 +8,18 @@ namespace NutriVie.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly NutriVieDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, NutriVieDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            List<Service> services = _context.Services.ToList();
+            return View(services);
         }
 
         public IActionResult Privacy()

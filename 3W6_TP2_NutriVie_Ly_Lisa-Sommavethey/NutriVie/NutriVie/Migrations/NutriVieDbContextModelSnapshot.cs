@@ -20,6 +20,49 @@ namespace NutriVie.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("NutriVie.Models.Service", b =>
+                {
+                    b.Property<int>("ServiceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceId"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ServiceId");
+
+                    b.ToTable("Services");
+
+                    b.HasData(
+                        new
+                        {
+                            ServiceId = 1,
+                            Description = "Des recettes équilibrées et faciles à préparer pour toute la famille.",
+                            Nom = "Recettes Saines"
+                        },
+                        new
+                        {
+                            ServiceId = 2,
+                            Description = "Des plans alimentaires personnalisés par nos nutritionnistes.",
+                            Nom = "Plans Nutritionnels"
+                        },
+                        new
+                        {
+                            ServiceId = 3,
+                            Description = "Des articles et guides sur la nutrition et le bien-être.",
+                            Nom = "Conseils d'Experts"
+                        });
+                });
 #pragma warning restore 612, 618
         }
     }
