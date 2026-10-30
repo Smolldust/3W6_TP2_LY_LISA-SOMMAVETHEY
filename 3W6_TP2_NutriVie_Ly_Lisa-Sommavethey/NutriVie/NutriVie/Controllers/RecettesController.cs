@@ -16,7 +16,12 @@ public class RecettesController : Controller
     // GET: RECETTES
     public async Task<IActionResult> Index()    
     {
-        return View(await _context.Recettes.ToListAsync());
+        var recettes = _context.Recettes
+            .Include(r => r.Categorie)
+            .OrderBy(r => r.Categorie.Nom)
+            .ThenBy(r => r.Nom);
+
+        return View(await recettes.ToListAsync());
     }
 
     // GET: RECETTES/Details/5
