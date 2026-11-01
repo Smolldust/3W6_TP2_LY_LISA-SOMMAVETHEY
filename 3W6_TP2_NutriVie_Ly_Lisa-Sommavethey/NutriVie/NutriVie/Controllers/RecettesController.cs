@@ -33,6 +33,7 @@ public class RecettesController : Controller
         }
 
         var recette = await _context.Recettes
+            .Include(r => r.Categorie)
             .FirstOrDefaultAsync(m => m.Id == id);
         if (recette == null)
         {
@@ -124,6 +125,7 @@ public class RecettesController : Controller
         }
 
         var recette = await _context.Recettes
+            .Include(r => r.Categorie)
             .FirstOrDefaultAsync(m => m.Id == id);
         if (recette == null)
         {
