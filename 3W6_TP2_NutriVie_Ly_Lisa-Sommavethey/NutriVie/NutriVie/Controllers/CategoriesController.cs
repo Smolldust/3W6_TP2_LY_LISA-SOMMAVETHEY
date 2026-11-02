@@ -54,6 +54,16 @@ public class CategoriesController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,Nom,Recette")] Categorie categorie)
     {
+        if (!string.IsNullOrEmpty(categorie.Nom))
+        {
+            bool existe = _context.Categories
+                .Any(c =>  c.Nom.ToLower() == categorie.Nom.ToLower());
+
+            if (existe)
+            {
+                ModelState.AddModelError("Nom", "Cette catégorie existe déjà");
+            }
+        }
         if (ModelState.IsValid)
         {
             _context.Add(categorie);
@@ -138,11 +148,20 @@ public class CategoriesController : Controller
     public async Task<IActionResult> DeleteConfirmed(int? id)
     {
         var categorie = await _context.Categories.FindAsync(id);
-        if (categorie != null)
+        if (categorie == null)
         {
-            _context.Categories.Remove(categorie);
+            return NotFound();
         }
 
+        bool contientRecettes = _context.Recettes.Any(r => r.CategorieId == id);
+
+        if (contientRecettes)
+        {
+            ViewData["MessageErreur"] = "Vous ne pouvez supprimer cette catégorie parce qu'elle contient des recettes.";
+            return View("Delete", categorie);
+        }
+
+        _context.Categories.Remove(categorie);
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
