@@ -48,15 +48,9 @@
                 <input asp-for="Categorie" class="form-control" />
                 <span asp-validation-for="Categorie" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+            <partial name="_BoutonsEdit" />
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
