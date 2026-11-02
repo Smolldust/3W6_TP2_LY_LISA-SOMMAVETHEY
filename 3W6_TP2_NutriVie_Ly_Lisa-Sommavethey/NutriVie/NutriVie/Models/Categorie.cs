@@ -8,7 +8,7 @@ namespace NutriVie.Models
         public int Id { get; set; }
         public string Nom { get; set; }
 
-        public int RecetteId { get; set; }
+        //public int RecetteId { get; set; }
         public List<Recette>? Recette { get; set; } = new List<Recette>();
     }
 }

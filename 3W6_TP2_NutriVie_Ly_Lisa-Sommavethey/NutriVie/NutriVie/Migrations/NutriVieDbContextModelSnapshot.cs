@@ -33,9 +33,6 @@ namespace NutriVie.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RecetteId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -44,32 +41,27 @@ namespace NutriVie.Migrations
                         new
                         {
                             Id = 1,
-                            Nom = "Française",
-                            RecetteId = 0
+                            Nom = "Française"
                         },
                         new
                         {
                             Id = 2,
-                            Nom = "Indienne",
-                            RecetteId = 0
+                            Nom = "Indienne"
                         },
                         new
                         {
                             Id = 3,
-                            Nom = "Africaine",
-                            RecetteId = 0
+                            Nom = "Africaine"
                         },
                         new
                         {
                             Id = 4,
-                            Nom = "Italienne",
-                            RecetteId = 0
+                            Nom = "Italienne"
                         },
                         new
                         {
                             Id = 5,
-                            Nom = "Orientale",
-                            RecetteId = 0
+                            Nom = "Orientale"
                         });
                 });
 

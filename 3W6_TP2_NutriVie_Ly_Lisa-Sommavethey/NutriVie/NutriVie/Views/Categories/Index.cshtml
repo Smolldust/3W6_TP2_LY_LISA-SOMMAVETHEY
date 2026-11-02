@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.RecetteId)
             </th> *@
             <th>
-                @Html.DisplayNameFor(model => model.Recette)
+                Recette @* @Html.DisplayNameFor(model => model.Recette) *@
             </th>
             <th></th>
         </tr>
@@ -30,11 +30,15 @@
             <td>
                 @Html.DisplayFor(model => item.Nom)
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(model => item.RecetteId)
-            </td>
+            </td> *@
             <td>
-                @Html.DisplayFor(model => item.Recette)
+                @* @Html.DisplayFor(model => item.Recette) *@
+                    @foreach(var recette in item.Recette.OrderBy(r => r.Nom))
+                    {
+                        <a asp-controller="Recettes" asp-action="Edit" asp-route-id="@recette.Id">@recette.Nom (@recette.TempsPreparation min)</a>
+                    }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
