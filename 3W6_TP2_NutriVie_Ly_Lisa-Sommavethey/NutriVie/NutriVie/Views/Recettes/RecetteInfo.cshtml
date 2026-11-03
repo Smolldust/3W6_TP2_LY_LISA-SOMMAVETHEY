@@ -1,0 +1,21 @@
+﻿@model NutriVie.ViewModels.RecetteInfoVM
+
+<tr>
+    <td>@Model.Nom</td>
+    <td>@Model.NbIngredients</td>
+    <td>@Model.TempsTotal</td>
+    <td>
+        @if (Model.TempsTotal <= 50)
+        {
+            <span class="text-success">Recette de courte durée</span>
+        }
+        else if (Model.TempsTotal <= 90)
+        {
+            <span class="text-warning">Recette de durée moyenne</span>
+        }
+        else
+        {
+            <span class="text-danger">Recette de longue durée</span>
+        }
+    </td>
+</tr>

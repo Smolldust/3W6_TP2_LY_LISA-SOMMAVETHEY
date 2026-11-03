@@ -1,8 +1,8 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NutriVie.Models;
 using NutriVie.Data;
+using NutriVie.ViewModels;
 
 public class RecettesController : Controller
 {
@@ -14,7 +14,7 @@ public class RecettesController : Controller
     }
 
     // GET: RECETTES
-    public async Task<IActionResult> Index()    
+    public async Task<IActionResult> Index()
     {
         var recettes = _context.Recettes
             .Include(r => r.Categorie)
@@ -22,6 +22,30 @@ public class RecettesController : Controller
             .ThenBy(r => r.Nom);
 
         return View(await recettes.ToListAsync());
+    }
+
+    // GET: RECETTES/AllRecettes
+    public async Task<IActionResult> AllRecettes()
+    {
+        List<RecetteCetegorieVM> categories = await _context.Categories
+            .OrderBy(c => c.Id)
+            .Select(c => new RecetteCetegorieVM
+            {
+                CategorieId = c.Id,
+                NomCategorie = c.Nom,
+                Recettes = c.Recette
+                .OrderBy(r => r.Nom)
+                .Select(r => new RecetteInfoVM
+                {
+                    Nom = r.Nom,
+                    NbIngredients = r.AlimentRecettes.Count,
+                    TempsTotal = r.TempsPreparation + r.TempsCuisson
+                })
+                .ToList()
+            })
+            .ToListAsync();
+
+        return View(categories);
     }
 
     // GET: RECETTES/Details/5
@@ -42,6 +66,8 @@ public class RecettesController : Controller
 
         return View(recette);
     }
+
+
 
     // GET: RECETTES/Create
     public IActionResult Create()
